@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
+import Search from './components/users/Search';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -11,7 +12,6 @@ class App extends React.Component {
   }
   
   async componentDidMount() {
-    console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
     //while the date is being fetched set loading to true
     //can combine this with a conditional for a spinner
     this.setState({
@@ -36,6 +36,7 @@ class App extends React.Component {
           <Navbar title='Github Finder' icon='fab fa-github' />
         </nav>
         <div className='container'>
+          <Search />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>
