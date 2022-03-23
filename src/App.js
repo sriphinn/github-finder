@@ -11,6 +11,7 @@ class App extends React.Component {
   }
   
   async componentDidMount() {
+    console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
     //while the date is being fetched set loading to true
     //can combine this with a conditional for a spinner
     this.setState({
@@ -18,7 +19,7 @@ class App extends React.Component {
     });
 
     const res = await axios
-      .get('https://api.github.com/users')
+      .get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       // .then not needed when using async await
       // .then(res => console.log(res.data));
       // after data is fetched update the state and set loading back to false
