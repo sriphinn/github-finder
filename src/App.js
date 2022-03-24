@@ -33,7 +33,7 @@ class App extends React.Component {
   // search Github users
   // when using arrow function async goes before parameter instaed of before function
   searchUsers = async text => {
-    this.setState = ({
+    this.setState({
       loading: true
     });
 
@@ -45,15 +45,27 @@ class App extends React.Component {
       });
   };
 
+  // Clear users from state
+  clearUsers = () => 
+    this.setState({ 
+      users: [], 
+      loading: false 
+    });
+
   render() {
+    const { users, loading } = this.state
     return (
       <div>
         <nav className='navbar bg-primary'>
           <Navbar title='Github Finder' icon='fab fa-github' />
         </nav>
         <div className='container'>
-          <Search searchUsers={this.searchUsers} />
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search 
+            searchUsers={this.searchUsers} 
+            clearUsers={this.clearUsers} 
+            showClear={users.length > 0 ? true : false}
+          />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     );

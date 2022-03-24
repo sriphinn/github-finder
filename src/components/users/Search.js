@@ -8,7 +8,9 @@ class Search extends Component {
 
   static propTypes = {
     //ptfr shortcut for function proptype
-    searchUsers: PropTypes.func.isRequired
+    searchUsers: PropTypes.func.isRequired,
+    clearUsers: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired
   };
 
   // when you don't use an arrow function you have to bind(this)
@@ -27,6 +29,9 @@ class Search extends Component {
   // onChange = e => this.setState({ [e.target.name]: e.target.value })
 
   render() {
+    // destructure to pull out this.props from props showClear and clearuser
+    const { showClear, clearUsers } = this.props;
+
     return (
       <div>
         <form onSubmit={this.onSubmit.bind(this)} className='form'>
@@ -43,6 +48,15 @@ class Search extends Component {
             className='btn btn-dark btn-block'
           />
         </form>
+        {/* if this.props.showClear is true then show the button */}
+        {showClear && (
+        <button 
+          className='btn btn-light btn-block' 
+          onClick={clearUsers}
+        >
+          Clear
+        </button>
+        )}
       </div>
     )
   }
