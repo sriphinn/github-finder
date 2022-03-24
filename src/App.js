@@ -3,12 +3,15 @@ import React from 'react';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
+import Alert from './components/layout/Alert';
 import axios from 'axios';
+
 
 class App extends React.Component {
   state = {
     users: [],
-    loading: false
+    loading: false,
+    alert: null
   }
   
   // below fetches users when app loads
@@ -52,18 +55,28 @@ class App extends React.Component {
       loading: false 
     });
 
+  setAlert = (msg, type) => {
+    this.setState({
+      alert: {msg: msg, type: type} //can also just leave it as msg, type
+    });
+    setTimeout(() => 
+      this.setState({ alert: null }), 1500);
+  }; 
+
   render() {
-    const { users, loading } = this.state
+    const { users, loading, alert } = this.state
     return (
       <div>
         <nav className='navbar bg-primary'>
           <Navbar title='Github Finder' icon='fab fa-github' />
         </nav>
         <div className='container'>
+          <Alert alert={alert} />
           <Search 
             searchUsers={this.searchUsers} 
             clearUsers={this.clearUsers} 
             showClear={users.length > 0 ? true : false}
+            setAlert={this.setAlert}
           />
           <Users loading={loading} users={users} />
         </div>
