@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 
-const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
+const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
   const [text, setText] = useState('');
 
   // when you don't use an arrow function you have to bind(this)
   const onSubmit = e => {
     e.preventDefault();
     if(text === '') {
-      setAlert('Please enter something', 'light');
+      showAlert('Please enter something', 'light');
     } else {
       searchUsers(text);
       setText('');
