@@ -7,6 +7,9 @@ import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import User from './components/users/User';
 import axios from 'axios';
+
+import GithubState from './context/github/GithubState';
+
 import './App.css';
 
 const App = () => {
@@ -115,6 +118,8 @@ const App = () => {
   }; 
 
     return (
+      // wrap entire app in the provider <GithubState>
+      <GithubState> 
       <Router>
       <div>
         <Navbar title='Github Finder' icon='fab fa-github' />
@@ -148,6 +153,7 @@ const App = () => {
         </div>
       </div>
       </Router>
+      </GithubState>
     );
 };
 
