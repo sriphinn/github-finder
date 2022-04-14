@@ -50,18 +50,18 @@ const App = () => {
 
   // search Github users
   // when using arrow function async goes before parameter instaed of before function
-  const searchUsers = async text => {
-    setLoading(true);
+  // const searchUsers = async text => {
+  //   setLoading(true);
 
-    const res = await axios
-    .get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-      setUsers(res.data.items);
-      setLoading(false)
-      // this.setState({
-      //   users: res.data.items, //added .items because the data recieved from API has items property, which is array of users matching query
-      //   loading: false
-      // });
-  };
+  //   const res = await axios
+  //   .get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+  //     setUsers(res.data.items);
+  //     setLoading(false)
+  //     // this.setState({
+  //     //   users: res.data.items, //added .items because the data recieved from API has items property, which is array of users matching query
+  //     //   loading: false
+  //     // });
+  // };
 
   // Get single Github user
   const getUser = async (username) => {
@@ -131,7 +131,7 @@ const App = () => {
                 element={
                 <Fragment>
                   <Search 
-                    searchUsers={searchUsers} 
+                    // searchUsers={searchUsers} <- no longer needed because we have it in context
                     clearUsers={clearUsers} 
                     showClear={users.length > 0 ? true : false}
                     showAlert={showAlert}

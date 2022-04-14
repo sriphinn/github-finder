@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types';
+import githubContext from '../../context/github/githubContext';
+import { useContext } from 'react/cjs/react.production.min';
 
-const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
+const Search = ({ showClear, clearUsers, showAlert }) => {
+  const githubContext = useContext(githubContext);
+  
   const [text, setText] = useState('');
 
   // when you don't use an arrow function you have to bind(this)
@@ -51,7 +55,6 @@ const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
 // in function component propTypes go outside
 Search.propTypes = {
   //ptfr shortcut for function proptype
-  searchUsers: PropTypes.func.isRequired,
   clearUsers: PropTypes.func.isRequired,
   showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired

@@ -24,6 +24,17 @@ const GithubState = props => {
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
   // search users
+  const searchUsers = async text => {
+    setLoading();
+
+    const res = await axios
+    .get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+      dispatch({
+        type: SEARCH_USERS,
+        payload: res.data //this is the data we want to send, reducer puts it in state and sends to components that need it
+      });
+      // dont need setLoading to false because it happens in the reducer with SEARCH_USERS
+  };
 
   // get user
 
@@ -31,18 +42,25 @@ const GithubState = props => {
 
   // clear users
 
-  // set loading
+  // set loading - going to dispatch to user
+  const setLoading = () => dispatch({ type: SET_LOADING });
+  
 
-  return <githubContext.Provider // makes this available to entire app
-    value = {{
-      users: state.users,
-      user: state.user,
-      repos: state.repos,
-      loading: state.loading
-    }}
-  >
-    {props.children}
-  </githubContext.Provider>
+  // makes this available to entire app
+  // {props.children} below is placeholder saying any child components go here
+  return (
+    <githubContext.Provider
+      value = {{
+        users: state.users,
+        user: state.user,
+        repos: state.repos,
+        loading: state.loading,
+        searchUsers
+      }}
+    >
+      {props.children} 
+    </githubContext.Provider>
+  );
 };
 
 export default GithubState;
