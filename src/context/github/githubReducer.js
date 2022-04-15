@@ -9,6 +9,7 @@ import {
   GET_REPOS
 } from '../types';
 
+// switch case statements are kind of like if else, cases are the ifs
 export default (state, action) => {
   switch(action.type) {
     case SEARCH_USERS:

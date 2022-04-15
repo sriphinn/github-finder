@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types';
-import githubContext from '../../context/github/githubContext';
-import { useContext } from 'react/cjs/react.production.min';
+import GithubContext from '../../context/github/githubContext';
 
 const Search = ({ showClear, clearUsers, showAlert }) => {
-  const githubContext = useContext(githubContext);
+  const githubContext = useContext(GithubContext);
   
   const [text, setText] = useState('');
 
@@ -14,7 +13,7 @@ const Search = ({ showClear, clearUsers, showAlert }) => {
     if(text === '') {
       showAlert('Please enter something', 'light');
     } else {
-      searchUsers(text);
+      GithubContext.searchUsers(text); //previously searchUser was passed as prop, not we're getting it from context
       setText('');
     }
   };
