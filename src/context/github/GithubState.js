@@ -31,18 +31,30 @@ const GithubState = props => {
     .get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       dispatch({
         type: SEARCH_USERS,
-        payload: res.data //this is the data we want to send, reducer puts it in state and sends to components that need it
+        payload: res.data.items //this is the data we want to send, reducer puts it in state and sends to components that need it
       });
       // dont need setLoading to false because it happens in the reducer with SEARCH_USERS
   };
 
   // get user
+  const getUser = async (username) => {
+    setLoading();
+
+    const res = await axios
+    .get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+      
+    dispatch({
+      type: GET_USER,
+      payload: res.data
+    });
+  };
 
   // get repos
 
   // clear users
+  const clearUsers = () => dispatch({ type: CLEAR_USERS });
 
-  // set loading - going to dispatch to user
+  // set loading - going to dispatch/sends the type of SET_LOADING (an ojbect) to the reducer
   const setLoading = () => dispatch({ type: SET_LOADING });
   
 
@@ -55,7 +67,9 @@ const GithubState = props => {
         user: state.user,
         repos: state.repos,
         loading: state.loading,
-        searchUsers
+        searchUsers,
+        clearUsers,
+        getUser
       }}
     >
       {props.children} 

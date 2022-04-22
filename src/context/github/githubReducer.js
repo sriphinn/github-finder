@@ -17,13 +17,25 @@ export default (state, action) => {
         ...state, // this spread returns the current state
         users: action.payload,
         loading: false
-      }
-    case SET_LOADING:
+      };
+    case GET_USER:
       return {
         ...state,
-        loading: true
+        user: action.payload,
+        loading: false
       }
+    case CLEAR_USERS:
+      return {
+        ...state,
+        users: [],
+        lading: false
+      };
+    case SET_LOADING:
+      return {
+        ...state, //spread returns copy of state (state is immutable so can't reassign it), have to make a copy and then add any additions/changes
+        loading: true
+      };
     default:
-      return state;
+      return state; //if there's no case, return the state as is
   }
 }

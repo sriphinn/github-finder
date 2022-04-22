@@ -13,9 +13,6 @@ import GithubState from './context/github/GithubState';
 import './App.css';
 
 const App = () => {
-  
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
@@ -64,21 +61,21 @@ const App = () => {
   // };
 
   // Get single Github user
-  const getUser = async (username) => {
-    setLoading(true);
-    // this.setState({
-    //   loading: true
-    // });
+  // const getUser = async (username) => {
+  //   setLoading(true);
+  //   // this.setState({
+  //   //   loading: true
+  //   // });
 
-    const res = await axios
-    .get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-      setUser(res.data);
-      setLoading(false);
-      // this.setState({
-      //   user: res.data, 
-      //   loading: false
-      // });
-  }
+  //   const res = await axios
+  //   .get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+  //     setUser(res.data);
+  //     setLoading(false);
+  //     // this.setState({
+  //     //   user: res.data, 
+  //     //   loading: false
+  //     // });
+  // }
 
   // Get users repos
   const getUserRepos = async (username) => {
@@ -97,16 +94,15 @@ const App = () => {
       // });
   }
 
-
-  // Clear users from state
-  const clearUsers = () => {
-    setUsers([]);
-    setLoading(false);
-    // this.setState({ 
-    //   users: [], 
-    //   loading: false 
-    // });
-  }
+  // // Clear users from state
+  // const clearUsers = () => {
+  //   setUsers([]);
+  //   setLoading(false);
+  //   // this.setState({ 
+  //   //   users: [], 
+  //   //   loading: false 
+  //   // });
+  // }
 
   const showAlert = (msg, type) => {
     setAlert({ msg, type });
@@ -132,21 +128,22 @@ const App = () => {
                 <Fragment>
                   <Search 
                     // searchUsers={searchUsers} <- no longer needed because we have it in context
-                    clearUsers={clearUsers} 
-                    showClear={users.length > 0 ? true : false}
+                    // clearUsers={clearUsers} 
+                    // showClear={users.length > 0 ? true : false}
                     showAlert={showAlert}
                   />
-                  <Users loading={loading} users={users} />
+                  {/* // users and loading no longer passed down as props into Users component */}
+                  <Users /> 
                 </Fragment>
               } />
               <Route path='/about' element={<About />} />
               <Route path='/user/:login' element={
                 <User 
-                  getUser={getUser} 
+                  // getUser={getUser} 
                   getUserRepos={getUserRepos} 
-                  user={user} 
+                  // user={user} 
                   repos={repos}
-                  loading={loading}
+                  // loading={loading}
                 />
               } />
           </Routes>

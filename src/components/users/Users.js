@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
+import GithubContext from '../../context/github/githubContext'; //bring it in with upper case G and initialize below with lowercase
 
-const Users = ({ users, loading }) => {
+const Users = () => {
   // constructor and super isn't really needed, can just define state
   // constructor() {
   //   super();
   // state no longer needed, now fetching data in App
+  const githubContext = useContext(GithubContext);
+  
+  const { loading, users } = githubContext;
+
   if(loading) {
     return <Spinner />
   } else {
     return (
       <div style={userStyle}>
-        {/* by destructuring the props, dont need 'this.props' */}
         {users.map(user => (
           <UserItem key={user.id} user={user} />
         ))}
@@ -22,10 +25,11 @@ const Users = ({ users, loading }) => {
   }
 };
 
-Users.propTypes = {
-  users: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
-};
+// prop types no longer needed because we're not using props. now getting value from context
+// Users.propTypes = {
+//   users: PropTypes.array.isRequired,
+//   loading: PropTypes.bool.isRequired
+// };
 
 // Style object similar to using an inline style
 const userStyle = {

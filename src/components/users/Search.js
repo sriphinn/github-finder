@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types';
-import GithubContext from '../../context/github/githubContext';
+import GithubContext from '../../context/github/githubContext'; 
 
-const Search = ({ showClear, clearUsers, showAlert }) => {
+const Search = ({ showAlert }) => {
   const githubContext = useContext(GithubContext);
   
   const [text, setText] = useState('');
@@ -13,7 +13,7 @@ const Search = ({ showClear, clearUsers, showAlert }) => {
     if(text === '') {
       showAlert('Please enter something', 'light');
     } else {
-      GithubContext.searchUsers(text); //previously searchUser was passed as prop, not we're getting it from context
+      githubContext.searchUsers(text); //previously searchUser was passed as prop, not we're getting it from context
       setText('');
     }
   };
@@ -39,10 +39,10 @@ const Search = ({ showClear, clearUsers, showAlert }) => {
           />
         </form>
         {/* if this.props.showClear is true then show the button */}
-        {showClear && (
+        {githubContext.users.length > 0 && (
         <button 
           className='btn btn-light btn-block' 
-          onClick={clearUsers}
+          onClick={githubContext.clearUsers}
         >
           Clear
         </button>
@@ -54,8 +54,6 @@ const Search = ({ showClear, clearUsers, showAlert }) => {
 // in function component propTypes go outside
 Search.propTypes = {
   //ptfr shortcut for function proptype
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 
