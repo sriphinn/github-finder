@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
@@ -6,11 +6,14 @@ import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import User from './components/users/User';
+
 import GithubState from './context/github/GithubState';
+import AlertState from './context/alert/AlertState';
+
 import './App.css';
 
 const App = () => {
-  const [alert, setAlert] = useState(null);
+  // state completeley moved to context
   
   // Class state
   // state = {
@@ -99,23 +102,24 @@ const App = () => {
   //   // });
   // }
 
-  const showAlert = (msg, type) => {
-    setAlert({ msg, type });
-    // this.setState({
-    //   alert: {msg: msg, type: type} //can also just leave it as msg, type
-    // });
-    setTimeout(() => setAlert(null), 1500);
-      // this.setState({ alert: null }), 1500);
-  }; 
+  // const showAlert = (msg, type) => {
+  //   setAlert({ msg, type });
+  //   // this.setState({
+  //   //   alert: {msg: msg, type: type} //can also just leave it as msg, type
+  //   // });
+  //   setTimeout(() => setAlert(null), 1500);
+  //     // this.setState({ alert: null }), 1500);
+  // }; 
 
     return (
       // wrap entire app in the provider <GithubState>
       <GithubState> 
+      <AlertState>
       <Router>
       <div>
         <Navbar title='Github Finder' icon='fab fa-github' />
         <div className='container'>
-          <Alert alert={alert} />
+          <Alert />
           <Routes>
               <Route  
                 path='/' 
@@ -125,7 +129,7 @@ const App = () => {
                     // searchUsers={searchUsers} <- no longer needed because we have it in context
                     // clearUsers={clearUsers} 
                     // showClear={users.length > 0 ? true : false}
-                    showAlert={showAlert}
+                    // showAlert={showAlert}
                   />
                   {/* // users and loading no longer passed down as props into Users component */}
                   <Users /> 
@@ -145,6 +149,7 @@ const App = () => {
         </div>
       </div>
       </Router>
+      </AlertState>
       </GithubState>
     );
 };
