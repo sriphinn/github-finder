@@ -7,6 +7,6 @@ export default (state, action) => {
     case REMOVE_ALERT:
       return null;
     default:
-      return state
+      return state;
   };
 };
