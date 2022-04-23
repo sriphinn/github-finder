@@ -1,18 +1,14 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
 import Repos from '../repos/Repos';
 import GithubContext from '../../context/github/githubContext';
 
-function User({  
-  getUserRepos,  
-  repos
-}) {
+function User() {
   const { login } = useParams()
 
   const githubContext = useContext(GithubContext);
-  const { getUser, loading, user } = githubContext;
+  const { getUser, loading, user, repos, getUserRepos } = githubContext;
 
   useEffect(() => {
     getUser(login)
@@ -108,9 +104,8 @@ function User({
   );
 };
 
-User.propTypes = {
-  repos: PropTypes.array.isRequired,
-  getUserRepos: PropTypes.func.isRequired
-};
+// no more proptypes because no longer passing any props
+// User.propTypes = {
+// };
 
 export default User;

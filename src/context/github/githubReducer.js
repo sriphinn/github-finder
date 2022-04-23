@@ -30,6 +30,12 @@ export default (state, action) => {
         users: [],
         lading: false
       };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: action.payload,
+        loading: false
+      };
     case SET_LOADING:
       return {
         ...state, //spread returns copy of state (state is immutable so can't reassign it), have to make a copy and then add any additions/changes

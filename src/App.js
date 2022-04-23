@@ -6,15 +6,10 @@ import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import User from './components/users/User';
-import axios from 'axios';
-
 import GithubState from './context/github/GithubState';
-
 import './App.css';
 
 const App = () => {
-  const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
   
   // Class state
@@ -78,21 +73,21 @@ const App = () => {
   // }
 
   // Get users repos
-  const getUserRepos = async (username) => {
-    setLoading(true);
-    // this.setState({
-    //   loading: true
-    // });
+  // const getUserRepos = async (username) => {
+  //   setLoading(true);
+  //   // this.setState({
+  //   //   loading: true
+  //   // });
 
-    const res = await axios
-    .get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-      setRepos(res.data);
-      setLoading(false);
-      // this.setState({
-      //   repos: res.data, 
-      //   loading: false
-      // });
-  }
+  //   const res = await axios
+  //   .get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+  //     setRepos(res.data);
+  //     setLoading(false);
+  //     // this.setState({
+  //     //   repos: res.data, 
+  //     //   loading: false
+  //     // });
+  // }
 
   // // Clear users from state
   // const clearUsers = () => {
@@ -139,11 +134,11 @@ const App = () => {
               <Route path='/about' element={<About />} />
               <Route path='/user/:login' element={
                 <User 
-                  // getUser={getUser} 
-                  getUserRepos={getUserRepos} 
-                  // user={user} 
-                  repos={repos}
-                  // loading={loading}
+                  // // getUser={getUser} 
+                  // getUserRepos={getUserRepos} 
+                  // // user={user} 
+                  // repos={repos}
+                  // // loading={loading}
                 />
               } />
           </Routes>
