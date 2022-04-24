@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import Navbar from './components/layout/Navbar';
-import Users from './components/users/Users';
-import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import User from './components/users/User';
+import Home from './components/pages/Home';
+import NotFound from './components/pages/NotFound';
 
 import GithubState from './context/github/GithubState';
 import AlertState from './context/alert/AlertState';
@@ -121,20 +121,7 @@ const App = () => {
         <div className='container'>
           <Alert />
           <Routes>
-              <Route  
-                path='/' 
-                element={
-                <Fragment>
-                  <Search 
-                    // searchUsers={searchUsers} <- no longer needed because we have it in context
-                    // clearUsers={clearUsers} 
-                    // showClear={users.length > 0 ? true : false}
-                    // showAlert={showAlert}
-                  />
-                  {/* // users and loading no longer passed down as props into Users component */}
-                  <Users /> 
-                </Fragment>
-              } />
+              <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
               <Route path='/user/:login' element={
                 <User 
@@ -145,6 +132,7 @@ const App = () => {
                   // // loading={loading}
                 />
               } />
+              <Route path='*' element={<NotFound />} />
           </Routes>
         </div>
       </div>
